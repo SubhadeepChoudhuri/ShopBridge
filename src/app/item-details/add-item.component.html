@@ -1,0 +1,101 @@
+<div id="myAddItemsDiv">
+  <div class="alert alert-danger" *ngIf="errorMssg">{{errorMssg}}</div>
+  <button type="button" id="addItem" class="btn btn-primary" data-toggle="modal" (click)="openAddItemModal()">ADD
+    ITEM</button>
+  <h2>My Items</h2>
+  <ul class="list-group" style="list-style-type: none;">
+    <li class="list-group-item" style="background-color: #0040ff;" *ngFor="let item of itemsArr"
+      routerLink="itemDetails">
+      <img *ngIf="submitted" [src]="item.photo_src" class="img-thumbnail" /><br>
+      <span *ngIf="submitted" class="badge">{{item.name}}</span>&nbsp;&nbsp;&nbsp;<span *ngIf="submitted"
+        class="badge">{{item.price}}</span>
+    </li>
+  </ul>
+</div>
+
+<router-outlet></router-outlet>
+<!-- Routed components go here -->
+
+<!-- Modal -->
+<div id="myModal" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <form [formGroup]="itemForm" (ngSubmit)="submitItemValues()" class="form-horizontal" novalidate>
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="closeAddItemModal()">&times;</button>
+          <h4 class="modal-title"><b>Create Item</b></h4>
+        </div>
+        <div class="modal-body">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <div class="panel-title">Please fill up item details</div>
+            </div>
+            <div class="panel-body">
+              <div class="form-group" [ngClass]="{'has-error': ((itemForm.get('name').touched ||
+          itemForm.get('name').dirty) &&
+          itemForm.get('name').errors)}">
+                <label class="col-sm-2 control-label" for="name">Name:</label>
+                <div class="col-sm-8">
+                  <input type="text" id="name" name="name" class="form-control" placeholder="Enter the name of item"
+                    formControlName="name" required>
+                  <span class="help-block" *ngIf="((itemForm.get('name').touched ||
+          itemForm.get('name').dirty) &&
+          itemForm.get('name').errors)">
+                    <span *ngIf="itemForm.get('name').errors.required">Name is required</span>
+                  </span>
+                </div>
+              </div>
+              <br>
+              <div class="form-group" [ngClass]="{'has-error': ((itemForm.get('descr').touched ||
+          itemForm.get('descr').dirty) &&
+          itemForm.get('descr').errors)}">
+                <label class="col-sm-2 control-label" for="descr">Description:</label>
+                <div class="col-sm-8">
+                  <input type="text" id="descr" name="descr" class="form-control"
+                    placeholder="Enter the description of item" formControlName="descr" required>
+                  <span class="help-block" *ngIf="((itemForm.get('descr').touched ||
+          itemForm.get('descr').dirty) &&
+          itemForm.get('descr').errors)">
+                    <span *ngIf="itemForm.get('descr').errors.required">Description is required</span>
+                  </span>
+                </div>
+              </div>
+              <br>
+              <div class="form-group" [ngClass]="{'has-error': ((itemForm.get('price').touched ||
+          itemForm.get('price').dirty) &&
+          itemForm.get('price').errors)}">
+                <label class="col-sm-2 control-label" for="price">Price:</label>
+                <div class="col-sm-8">
+                  <input type="text" id="price" name="price" class="form-control" placeholder="Enter the price of item"
+                    formControlName="price" required>
+                  <span class="help-block" *ngIf="((itemForm.get('price').touched ||
+          itemForm.get('price').dirty) &&
+          itemForm.get('price').errors)">
+                    <span *ngIf="itemForm.get('price').errors.required">Price is required</span>
+                  </span>
+                </div>
+              </div>
+              <!--<div class="form-group">
+                <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+                <button (click)="fileInput.click()">Select File</button>
+                <button (click)="onUpload()">Upload!</button>
+              </div>-->
+              <div class="form-group">
+                <img [src]="url" height="100"> <br />
+                <input type='file' id="photo" name="photo" class="form-control" formControlName="photo"
+                  (change)="onSelectFile($event)">
+              </div>
+            </div>
+            <div class="panel-footer"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" (click)="closeAddItemModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!itemForm.valid"
+              (click)="closeAddItemModal()">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
