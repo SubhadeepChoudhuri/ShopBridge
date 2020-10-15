@@ -46,4 +46,4 @@ testem.log
 Thumbs.db
 
 #
-ignored putting node_modules
+Ignored creating folder for node_modules & putting files inside it.(because of large no. of sub-folders contained in it).You have to use npm install command in terminal to create all the files inside node_modules.
