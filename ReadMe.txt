@@ -1,6 +1,6 @@
 Steps done:
 
-1.Install the project in angular:
+1.Install the project in angular by using:
 
 ng new ShopBridge ( commands are typed via Git Bash terminal)
 
