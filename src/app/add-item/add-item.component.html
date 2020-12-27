@@ -1,3 +1,5 @@
+<div class="container-fluid">
+<br><br>
 <div id="myAddItemsDiv">
   <div class="alert alert-danger" *ngIf="errorMssg">{{errorMssg}}</div>
   <button type="button" id="addItem" class="btn btn-primary" data-toggle="modal" (click)="openAddItemModal()">ADD
@@ -11,6 +13,7 @@
         class="badge">{{item.price}}</span>
     </li>
   </ul>
+</div>
 </div>
 
 <router-outlet></router-outlet>
@@ -76,11 +79,6 @@
                   </span>
                 </div>
               </div>
-              <!--<div class="form-group">
-                <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
-                <button (click)="fileInput.click()">Select File</button>
-                <button (click)="onUpload()">Upload!</button>
-              </div>-->
               <div class="form-group">
                 <img [src]="url" height="100"> <br />
                 <input type='file' id="photo" name="photo" class="form-control" formControlName="photo"
