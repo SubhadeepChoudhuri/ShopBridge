@@ -6,13 +6,13 @@ import { AppComponent } from './app.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
-import { ItemDetailsComponent } from './item-details/item-details.component';
+import { ListItemComponent } from './list-item/list-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddItemComponent,
-    ItemDetailsComponent
+    ListItemComponent
   ],
   imports: [
     BrowserModule,
