@@ -1,0 +1,13 @@
+
+<div class="col-sm-12">
+<div id="myItemListDiv">
+    <ul style="list-style-type: none;">
+     <li *ngFor = "let item of items" class="col-sm-11 text-center" style="min-height: 100px; background-color: steelblue;padding: 5%; margin: 1%;">
+        <img [src]="item.photo" class="img-responsive"/>&nbsp;&nbsp;
+         <span>{{item.name}}</span>&nbsp;&nbsp;
+         <span>{{item.descr}}</span>&nbsp;&nbsp;
+        <span>{{item.price}}</span></li>
+    </ul>    
+</div>
+</div>
+
