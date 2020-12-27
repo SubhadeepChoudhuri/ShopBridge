@@ -3,10 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { PostFormDataService } from '../post-form-data.service';
 import { GetFormDataService } from '../get-form-data.service';
-import { CommonModule } from '@angular/common';  
-import { Item } from '../item';
-import { ITEMS } from '../mock-items';
-import { ItemDetailsComponent } from '../item-details/item-details.component';
+import { ListItemComponent } from '../list-item/list-item.component';
 
 @Component({
   selector: 'app-add-item',
@@ -20,19 +17,20 @@ export class AddItemComponent implements OnInit {
   price: any;
   photo: any;
   itemForm: FormGroup;
-  //selectedFile: File = null;
+
   url: any;
   submitted = false;
   errorMssg = '';
 
   itemObj = {"name": '', "descr": '', "price": '', "photo_src": ''};
   itemsArr = [];
+  items2: any[];
   static itemsArr2: any = [];
   
-  constructor(private fb: FormBuilder, private postFormDataService: PostFormDataService, private getFormDataService: GetFormDataService) { }
+  constructor(private fb: FormBuilder, private postFormDataService: PostFormDataService) { }
 
   ngOnInit(): void {
-  
+
     this.itemForm = new FormGroup({
     name: new FormControl(this.name, [Validators.required]),
       descr: new FormControl(this.descr, [Validators.required]),
@@ -42,20 +40,6 @@ export class AddItemComponent implements OnInit {
       
   }
 
-  /*onFileChanged(event) {
-    console.log(event);
-    this.selectedFile = <File>event.target.files[0];
-  }
-
-  onUpload() {
-    const fd = new FormData();
-    fd.append('image',this.selectedFile,this.selectedFile.name)
-    this.http.post('', fd)
-    .subscribe(res=>{console.log(res);
-    });
-  }*/
-
-  
     onSelectFile(event) { // called each time file input changes
         if (event.target.files && event.target.files[0]) {
           var reader = new FileReader();
@@ -64,9 +48,12 @@ export class AddItemComponent implements OnInit {
 
           reader.onload = (event) => { // called once readAsDataURL is completed
             this.url = event.target.result;
-            //console.log(656);
-            //console.log(this.url);
           }
+         
+          //this.url = event.target.value;
+          //this.url = event.target.value.replace("C:\\fakepath\\", " ..\\assets\\images\\");
+          //console.log(this.url);
+         
         }
     }
 
@@ -79,35 +66,26 @@ export class AddItemComponent implements OnInit {
   closeAddItemModal(){
     document.getElementById('myModal').style.display = 'none';
   }
-
+  addRec = [];
   submitItemValues() {
     // TODO: Use EventEmitter with form value
     if(this.itemForm.valid){
     //document.getElementById('myModal').style.display = 'none';
     this.submitted = true;
-    console.log('form submitted!',this.itemForm.value);
+    //console.log('form submitted!',this.itemForm.value);
+    console.log(this.itemForm.value.name);
+    console.log(ListItemComponent.items2);
+    let dupliateIndex = ListItemComponent.items2.findIndex(row=>row.name == this.itemForm.value.name);
+    console.log(dupliateIndex);
+    if(dupliateIndex == -1){
     this.postFormDataService.postData(this.itemForm.value)
-    .subscribe(suc => {
-      console.log('Success!',suc);
-      //this.getFormDataService.getData();
-      this.itemObj = {"name": this.itemForm.value.name , "descr": this.itemForm.value.descr, "price": this.itemForm.value.price, "photo_src": this.url };
-      this.itemsArr.push(this.itemObj);
-      
-      AddItemComponent.itemsArr2 = this.itemsArr;
-  },
-  err => { this.errorMssg = err.statusText }
-    );
-
-    
-
-    /*this.getFormDataService.getData(this.itemForm.value)
-    .subscribe(
-      data => console.log('Success!',data),
-      error => this.errorMssg = error.statusText
-    );*/
-    
-    //console.warn(this.itemForm.value);
-    }
+    .subscribe(res=> {
+      console.log(res);
+    });
   }
+
+  }
+
+}
 
 }
