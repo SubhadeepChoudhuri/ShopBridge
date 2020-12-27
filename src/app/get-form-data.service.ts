@@ -10,11 +10,13 @@ import { AddItemComponent } from './add-item/add-item.component';
 })
 export class GetFormDataService {
 
-  getURL= 'http://localhost:3000/postData';
+  getURL= 'http://localhost:3000/';
   constructor(private getHttp: HttpClient) { }
 
+  obj = {};
+
   getData(){
-    return this.getHttp.get<any>(this.getURL)
+    return this.getHttp.get<any>(this.getURL,this.obj)
     .pipe(catchError(this.errorHandler));
   }
 
